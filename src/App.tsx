@@ -1,9 +1,9 @@
-import {Landing} from "./pages";
+import {Error } from "./pages";
 
 function App() {
 
   return (
-      <Landing/>
+      <Error/>
   )
 }
 
