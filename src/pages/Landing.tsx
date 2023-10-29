@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Wrapper from '../assets/wrappers/LandingPage';
 import {Logo} from "../components";
 
@@ -20,7 +20,7 @@ function Landing() {
                             perferendis perspiciatis quod rerum tempora voluptate.
                         </p>
                         <Link to='/register' className='btn btn-hero'>
-                        Login / Register
+                            Login / Register
                         </Link>
                     </div>
                 </div>

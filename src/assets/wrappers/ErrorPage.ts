@@ -24,9 +24,6 @@ const Wrapper = styled.main`
     text-decoration: underline;
     text-transform: capitalize;
   }
-  .sit{
-    color: gray;
-  }
 `;
 
 export default Wrapper;
