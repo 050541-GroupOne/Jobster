@@ -6,13 +6,13 @@ const FormGroup: FC<FormGroupProps> = ({
                                            name,
                                            value,
                                            handleChange,
-                                           labelText = name
+                                           labelText
                                        }) => {
 
     return (
         <div className='form-group'>
             <label htmlFor={name} className='form-label'>
-                {labelText}
+                {labelText || name}
             </label>
 
             <input
