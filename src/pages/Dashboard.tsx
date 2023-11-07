@@ -1,7 +1,7 @@
 
 function Dashboard() {
     return (
-        <h1>Dash board page</h1>
+        <h1>Dash board page</h1> // TODO: implement
     );
 }
 
