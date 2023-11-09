@@ -6,9 +6,11 @@ const Wrapper = styled.section`
   background: var(--white);
   padding: 3rem 2rem 4rem;
   box-shadow: var(--shadow-2);
+
   h3 {
     margin-top: 0;
   }
+
   .form {
     margin: 0;
     border-radius: 0;
@@ -17,40 +19,49 @@ const Wrapper = styled.section`
     max-width: 100%;
     width: 100%;
   }
+
   .form-row {
     margin-bottom: 0;
   }
+
   .form-center {
     display: grid;
     row-gap: 0.5rem;
   }
+
   .form-center button {
     align-self: center;
     height: 35px;
     margin-top: 1rem;
   }
+
   .btn-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
     align-self: flex-end;
     margin-top: 0.5rem;
+
     button {
       height: 35px;
     }
   }
+
   .clear-btn {
     background: var(--grey-500);
   }
+
   .clear-btn:hover {
     background: var(--black);
   }
+
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
       column-gap: 1rem;
     }
+
     .btn-container {
       margin-top: 0;
     }
@@ -59,6 +70,7 @@ const Wrapper = styled.section`
     .form-center {
       grid-template-columns: 1fr 1fr 1fr;
     }
+
     .form-center button {
       margin-top: 1rem;
     }

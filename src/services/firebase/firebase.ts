@@ -59,6 +59,7 @@ export const initializeAuthState = async () => {
     }
 };
 
+
 export const initializeUserState = async () => {
     const auth = getAuth();
 
@@ -74,6 +75,7 @@ export const initializeUserState = async () => {
         return null;
     }
 };
+
 
 export const updateUserInfo = async (user: User) => {
     const auth = getAuth(app);
