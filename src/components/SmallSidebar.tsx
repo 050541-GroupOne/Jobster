@@ -6,7 +6,6 @@ import {toggleSidebar} from "../features/auth/slice.ts";
 import NavLinks from "./NavLinks.tsx";
 import {RootState} from "../features/store.ts";
 
-
 function SmallSidebar() {
     const { isSidebarOpen } = useSelector((store: RootState) => store.auth);
     const dispatch = useDispatch();
@@ -17,7 +16,7 @@ function SmallSidebar() {
 
     return (
         <Wrapper>
-            <div className={isSidebarOpen ? 'sidebar-container' : 'sidebar-container show-sidebar'}>
+            <div className={isSidebarOpen ? 'sidebar-container show-sidebar' : 'sidebar-container'}>
                 <div className='content'>
                     <button
                         className='close-btn'

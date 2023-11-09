@@ -8,7 +8,6 @@ import {initializeAuthState, initializeUserState} from "../../services/firebase/
 const initialState: AuthState = {
     user: await initializeUserState(),
     isAuthenticated: await initializeAuthState(),
-    isLoading: false,
     isSidebarOpen: false
 }
 
@@ -43,51 +42,31 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(registerUser.pending, (state) => {
-            state.isLoading = true;
-        });
         builder.addCase(registerUser.fulfilled, (state, {payload}) => {
-            state.isLoading = false;
             state.user = {name: payload.displayName, email: payload.email};
             toast.success(`Welcome ${state.user.name}!`);
         });
-        builder.addCase(registerUser.rejected, (state, {payload}) => {
-            state.isLoading = false;
+        builder.addCase(registerUser.rejected, (_, {payload}) => {
             toast.error(payload as string);
-        });
-        builder.addCase(loginUser.pending, (state) => {
-            state.isLoading = true;
         });
         builder.addCase(loginUser.fulfilled, (state, {payload}) => {
-            state.isLoading = false;
             state.user = {name: payload.displayName, email: payload.email};
             toast.success(`Welcome ${state.user.name}!`);
         });
-        builder.addCase(loginUser.rejected, (state, {payload}) => {
-            state.isLoading = false;
+        builder.addCase(loginUser.rejected, (_, {payload}) => {
             toast.error(payload as string);
         });
-        builder.addCase(logoutUser.pending, (state) => {
-            state.isLoading = true;
-        });
-        builder.addCase(logoutUser.fulfilled, (state) => {
-            state.isLoading = false;
+        builder.addCase(logoutUser.fulfilled, () => {
             toast.success(`Logged out successfully!`);
         });
-        builder.addCase(logoutUser.rejected, (state, {payload}) => {
-            state.isLoading = false;
+        builder.addCase(logoutUser.rejected, (_, {payload}) => {
             toast.error(payload as string);
         });
-        builder.addCase(updateUser.pending, (state) => {
-            state.isLoading = true;
-        });
         builder.addCase(updateUser.fulfilled, (state, {payload}) => {
-            state.isLoading = false;
             state.user = {name: payload.displayName, email: payload.email};
             toast.success(`User updated successfully!`);
         });
-        builder.addCase(updateUser.rejected, (state, {payload}) => {
-            state.isLoading = false;
+        builder.addCase(updateUser.rejected, (_, {payload}) => {
             toast.error(payload as string);
         });
     }
