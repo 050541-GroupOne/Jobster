@@ -1,18 +1,26 @@
-import { Outlet } from 'react-router-dom';
-import { Navbar, SmallSidebar, BigSidebar } from '../../components';
+import {Outlet} from 'react-router-dom';
+import {Navbar, SmallSidebar, BigSidebar, Loading} from '../../components';
 import Wrapper from '../../assets/wrappers/SharedLayout';
+import {RootState} from "../../features/store.ts";
+import {useSelector} from "react-redux";
+
 
 const SharedLayout = () => {
+    const {isAuthenticated} = useSelector((state: RootState) => state.auth);
+    if (!isAuthenticated) {
+        return <Loading center={true}/>;
+    }
+
     return (
         <>
             <Wrapper>
                 <main className='dashboard'>
-                    <SmallSidebar />
-                    <BigSidebar />
+                    <SmallSidebar/>
+                    <BigSidebar/>
                     <div>
-                        <Navbar />
+                        <Navbar/>
                         <div className='dashboard-page'>
-                            <Outlet />
+                            <Outlet/>
                         </div>
                     </div>
                 </main>
