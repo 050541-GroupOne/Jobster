@@ -1,11 +1,15 @@
-import {AuthState} from "../../interfaces/states/authState.ts";
+import {AuthState, User} from "../../interfaces/states/authState.ts";
 import {FormState} from "../../pages/Register.tsx";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {loginUserThunk, registerUserThunk} from "./thunk.ts";
+import {loginUserThunk, logoutUserThunk, registerUserThunk, updateUserThunk} from "./thunk.ts";
 import {toast} from "react-toastify";
+import {initializeAuthState, initializeUserState} from "../../services/firebase/firebase.ts";
 
 const initialState: AuthState = {
-    isLoading: false
+    user: await initializeUserState(),
+    isLoading: false,
+    isAuthenticated: await initializeAuthState(),
+    isSidebarOpen: false
 }
 
 export const registerUser = createAsyncThunk(
@@ -16,18 +20,36 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (user: FormState, {rejectWithValue}) => loginUserThunk(user, {rejectWithValue}));
 
+export const logoutUser = createAsyncThunk(
+    "auth/logoutUser",
+    async (_, {rejectWithValue}) => logoutUserThunk({rejectWithValue}));
+
+export const updateUser = createAsyncThunk(
+    "auth/updateUser",
+    async (user: User, {rejectWithValue}) => updateUserThunk(user, {rejectWithValue}));
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        toggleSidebar: (state) => {
+            state.isSidebarOpen = !state.isSidebarOpen;
+        },
+        setUser: (state, {payload}) => {
+            state.user = {name: payload.displayName, email: payload.email};
+        },
+        setAuthenticated: (state, {payload}) => {
+            state.isAuthenticated = payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(registerUser.fulfilled, (state, {payload}) => {
             state.isLoading = false;
-            console.log(payload)
-            toast.success(`Welcome ${payload}!`);
+            state.user = {name: payload.displayName, email: payload.email};
+            toast.success(`Welcome ${state.user.name}!`);
         });
         builder.addCase(registerUser.rejected, (state, {payload}) => {
             state.isLoading = false;
@@ -38,14 +60,38 @@ const authSlice = createSlice({
         });
         builder.addCase(loginUser.fulfilled, (state, {payload}) => {
             state.isLoading = false;
-            console.log(payload)
-            toast.success(`Welcome back ${payload}!`);
+            state.user = {name: payload.displayName, email: payload.email};
+            toast.success(`Welcome ${state.user.name}!`);
         });
         builder.addCase(loginUser.rejected, (state, {payload}) => {
             state.isLoading = false;
             toast.error(payload as string);
         });
+        builder.addCase(logoutUser.pending, (state) => {
+            state.isLoading = true;
+            toast.success(`Logging out...`);
+        });
+        builder.addCase(logoutUser.fulfilled, (state) => {
+            state.isLoading = false;
+            toast.success(`Logged out successfully!`);
+        });
+        builder.addCase(logoutUser.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload as string);
+        });
+        builder.addCase(updateUser.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateUser.fulfilled, (state, {payload}) => {
+            state.isLoading = false;
+            state.user = {name: payload.displayName, email: payload.email};
+            toast.success(`User updated successfully!`);
+        });
+        builder.addCase(updateUser.rejected, (state, {payload}) => {
+            state.isLoading = false;
+            toast.error(payload as string);
+        });
     }
 });
-
+export const {toggleSidebar, setUser, setAuthenticated} = authSlice.actions;
 export default authSlice.reducer;

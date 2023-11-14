@@ -23,7 +23,7 @@ function Register() {
     const [values, setValues] = useState(initialState);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const {  isLoading } = useSelector((store: RootState) => store.auth);
+    const { isLoading } = useSelector((store: RootState) => store.auth);
 
     const toggleMember = () => {
         setValues((prevValues) => ({...prevValues, isMember: !prevValues.isMember}));
