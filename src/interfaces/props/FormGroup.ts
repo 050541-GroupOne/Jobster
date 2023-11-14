@@ -8,3 +8,10 @@ export interface FormGroupProps {
     labelText?: string;
 }
 
+export interface FormGroupSelectProps {
+    labelText?: string;
+    name: string;
+    value: string;
+    handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+    list: string[];
+}

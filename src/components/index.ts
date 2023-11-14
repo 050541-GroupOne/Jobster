@@ -4,6 +4,8 @@ import BigSidebar from './BigSidebar';
 import Navbar from './Navbar';
 import SmallSidebar from './SmallSidebar';
 import Loading from './Loading';
+import NavLinks from './NavLinks';
+import FormGroupSelect from './FormGroupSelect';
 
 export {
     Logo,
@@ -11,5 +13,7 @@ export {
     BigSidebar,
     Navbar,
     SmallSidebar,
-    Loading
+    Loading,
+    NavLinks,
+    FormGroupSelect
 };

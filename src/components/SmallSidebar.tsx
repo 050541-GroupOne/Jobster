@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import Logo from './Logo';
 import { useSelector, useDispatch } from 'react-redux';
 import {toggleSidebar} from "../features/auth/slice.ts";
-import NavLinks from "./NavLinks.tsx";
+import {NavLinks} from "./index.ts";
 import {RootState} from "../features/store.ts";
 
 function SmallSidebar() {
